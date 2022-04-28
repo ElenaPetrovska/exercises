@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intern zad 1
+    </title>
+</head>
+<body>
+
+ <script>
+      
+
+
+    function rotateRight(arr, n)
+    { 
+
+        let pom =[];
+        for(let i=0 ; i<arr.length; i++)
+        {
+          let poz=[n+i] % arr.length;
+          pom[poz]= arr[i];
+          
+        }
+        console.log(pom)
+    }
+
+    rotateRight([1,2,3] ,2);
+   
+
+
+    function rotateLeft(arr, n) 
+    {
+        let pom = arr.slice(n).concat(arr.slice(0,n));
+         return pom
+         //console.log(pom);
+    }
+    console.log(rotateLeft([1,2,3,4,5],3));
+    
+
+
+        
+
+
+                
+                
+</script>
+                
+</body>
+</html>

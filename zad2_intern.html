@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>Document</title>
+    <script src='https://cdn.jsdelivr.net/lodash/4.17.2/lodash.min.js'></script>
+
+</head>
+<body>
+<script>
+       const RESOURCES = [
+  {
+    id: 1,
+    name: "Resource #1",
+    startDate: "20220101",
+    endDate: "20220102",
+    type: "campaign",
+    region: "eu",
+    code: "uk_1111"
+  },
+  {
+    id: 2,
+    name: "Resource #2",
+    startDate: "20220102",
+    endDate: "20220103",
+    type: "order",
+    region: "na",
+    code: "usa_2222"
+  },
+  {
+    id: 3,
+    name: "Resource #3",
+    startDate: "20220103",
+    endDate: "20220104",
+    type: "order",
+    region: "na",
+    code: "usa_3333"
+  },
+  {
+    id: 4,
+    name: "Resource #4",
+    startDate: "20220104",
+    endDate: "20220105",
+    type: "campaign",
+    region: "eu",
+    code: "es_4444"
+  },
+  {
+    id: 5,
+    name: "Resource #5",
+    startDate: "20220105",
+    endDate: "20220106",
+    type: "order",
+    region: "eu",
+    code: "it_5555"
+  },
+  {
+    id: 6,
+    name: "Resource #6",
+    startDate: "20220106",
+    endDate: "20220107",
+    type: "campaign",
+    region: "eu",
+    code: "mk_1111"
+  },
+  {
+    id: 7,
+    name: "Resource #7",
+    startDate: "20220107",
+    endDate: "20220108",
+    type: "order",
+    region: "apac",
+    code: "cn_7777"
+  },
+  {
+    id: 8,
+    name: "Resource #8",
+    startDate: "20220108",
+    endDate: "20220109",
+    type: "campaign",
+    region: "eu",
+    code: "mk_8888"
+  },
+  {
+    id: 9,
+    name: "Resource #9",
+    startDate: "20220109",
+    endDate: "20220110",
+    type: "order",
+    region: "apac",
+    code: "au_9999"
+  },
+  {
+    id: 10,
+    name: "Resource #10",
+    startDate: "20220110",
+    endDate: "20220111",
+    type: "order",
+    region: "latam",
+    code: "mx_1010"
+  },
+  {
+    id: 11,
+    name: "Resource #11",
+    startDate: "20220110",
+    endDate: "20220111",
+    type: "campaign",
+    region: "latam",
+    code: "mx_2332"
+  }
+];
+
+
+    //    function fun(resource, t)
+    //    {
+    //     let temp=[]
+    //        for(let i=0;i<RESOURCES.length;i++)
+    //        {
+    //             if(RESOURCES[i].type == t)
+    //             {
+    //                 temp.push(RESOURCES[i])
+    //             }
+    //        }
+    //        return temp;
+    //     }
+    //    let res = fun(RESOURCES)
+    //    console.log(res);
+
+
+  function filterRes(resource, t)
+  {
+    let resSameType=resource.filter(({type})=>type == t); 
+    console.log(resSameType);
+
+    let groupByRegion= _.groupBy(resSameType,({region})=>region );
+    console.log(groupByRegion);
+
+    let regKeys=Object.keys(groupByRegion);
+    let newGroupByRegion = {};
+    regKeys.forEach(region=>{newGroupByRegion[region]=[]}) 
+    
+    
+    regKeys.forEach(region=>groupByRegion[region].map(obj=> { 
+            newGroupByRegion[region].push(convertObject(obj,t)) } 
+
+        ));
+    console.log(newGroupByRegion)
+
+
+
+  }
+  filterRes( RESOURCES,"order");
+
+
+  function convertObject(obj,tip)
+  {
+      let newObj={};
+      newObj.id=obj.id;
+      newObj.name=obj.name;
+      if(tip=="order")
+      {
+        newObj.order_id=getNumFromCode(obj.code)
+      }
+      else
+      {
+        newObj.order_id=getNumFromCode(obj.code)
+      }
+      newObj.country=getContry(obj.code)
+      newObj.startDate=obj.startDate;
+      newObj.endDate=obj.endDate;
+
+      return newObj;
+  }
+
+  
+
+
+    function getNumFromCode(code)
+    {
+        let arr = code.split("_")
+        return arr[1];
+    }
+            
+    function getContry(code)   
+    {
+        let arr = code.split("_")
+        return arr[0].toUpperCase();
+    }     
+     
+        
+
+</script>
+</body>
+</html>
